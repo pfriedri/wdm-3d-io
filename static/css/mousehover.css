@@ -1,0 +1,41 @@
+.videocontainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+}
+
+.videocontainer .box {
+    position: relative;
+    width: 40%;
+    height: auto;
+    filter: grayscale(1);
+    display: flex;
+    margin: 3px;
+    flex-direction: column;
+}
+
+.box:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.box:last-child {
+    margin-bottom: 1.5rem;
+}
+
+.videocontainer .box:hover {
+    filter: grayscale(0);
+}
+
+details {
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    padding: 2em 2em 2em;
+    cursor: pointer;
+}
+
+iframe {
+    aspect-ratio: 16/9;
+    width: 100%;
+}

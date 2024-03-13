@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="WDM: Wavelet Diffusion Models for High-Resolution Medical Image Synthesis.">
+    <meta name="keywords" content="Medical Image Generation, Diffusion Model, Wavelet Transform, 3D Image Generation, Image Synthesis">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WDM: Wavelet Diffusion Models for High-Resolution Medical Image Synthesis</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="stylesheet" href="./static/css/mousehover.css">
+    <link rel="icon" href="./static/images/favicon.svg">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { fonts: ["TeX"] } });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+                <a class="navbar-item" href="https://pfriedri.github.io">
+                    <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+            More Research
+        </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="https://pfriedri.github.io/pcdiff-implant-io/">
+            Point Cloud Diffuison Models for Automatic Implant Generation
+        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title"><b>WDM</b>: Wavelet Diffusion Models for High-Resolution Medical Image Synthesis</h1>
+                        <h4 class="title is-4">arXiv preprint</h4>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+              <a href="https://pfriedri.github.io">Paul Friedrich</a>,</span>
+                            <span class="author-block">
+              <a href="https://dbe.unibas.ch/en/persons/julia-wolleb/">Julia Wolleb</a>,</span>
+                            <span class="author-block">
+              <a href="https://dbe.unibas.ch/en/persons/florentin-bieder/">Florentin Bieder</a>,</span>
+                            <span class="author-block">
+              <a href="https://dbe.unibas.ch/en/persons/alicia-durrer/">Alicia Durrer</a>,</span>
+                            <span class="author-block">
+              <a href="https://dbe.unibas.ch/en/persons/philippe-claude-cattin/">Philippe C. Cattin</a>
+                        </div>
+
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">University of Basel, Department of Biomedical Engineering</span>
+                        </div>
+
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- PDF Link. -->
+                                <span class="link-block">
+                <a href="https://arxiv.org/pdf/2402.19043.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                                <span>Paper</span>
+                                </a>
+                                </span>
+                                <span class="link-block">
+                <a href="https://arxiv.org/abs/2402.19043"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                                <span>arXiv</span>
+                                </a>
+                                </span>
+                                <!-- Code Link. -->
+                                <span class="link-block">
+                <a href="https://github.com/pfriedri/wdm-3d"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                                <span>Code</span>
+                                </a>
+                                </span>
+                                <!-- Code Link. -->
+                                <span class="link-block">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="eyecatcher">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <img src="images/Overview.png">
+                <h2 class="subtitle has-text-centered">
+                    Schematic overview of the proposed wavelet-based medical image synthesis framework.
+                </h2>
+            </div>
+        </div>
+    </section>
+    <section class="section" style="background-color:#f5f5f5">
+        <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            Due to the three-dimensional nature of CT- or MR-scans, generative modeling of medical images is a particularly challenging task. Existing approaches mostly apply patch-wise, slice-wise, or cascaded generation techniques to fit the high-dimensional data into the limited GPU memory. 
+                            However, these approaches may introduce artifacts and potentially restrict the model's applicability for certain downstream tasks. 
+                            This work presents <b>WDM</b>, a wavelet-based medical image synthesis framework that applies a diffusion model on wavelet decomposed images. 
+                            The presented approach is a simple yet effective way of scaling diffusion models to high resolutions and can be trained on a single 40 GB GPU. 
+                            Experimental results on BraTS and LIDC-IDRI unconditional image generation at a resolution of 128 × 128 × 128 show state-of-the-art image fidelity (FID) and sample diversity (MS-SSIM) scores compared to GANs, Diffusion Models, and Latent Diffusion Models. 
+                            Our proposed method is the only one capable of generating high-quality images at a resolution of 256 × 256 × 256.
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Video</h2>
+                    <div class="content has-text-centered">
+                        <iframe src="https://www.youtube.com/embed/6oN8CAqCJes?si=1PODln_3UE1S80y-" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+    </section> -->
+
+    <section class="section ">
+        <div class="container is-max-desktop ">
+            <div class="columns is-centered has-text-centered ">
+                <div class="column ">
+                    <h2 class="title is-3 ">General Concept</h2>
+                    <div class="content has-text-justified ">
+                        <p>
+                            Our proposed method follows a concept that is closely related to Latent Diffusion Models (LDMs). 
+                            While LDMs use a pretrained autoencoder to encode input images into a learned low-dimensional representation and then apply a diffusion model on these latent representations,
+                            our method follows a dataset-agnostic, training-free approach for spatial dimensionality reduction. Instead of using a pretrained autoencoder, 
+                            we apply Discrete Wavelet Transform (DWT) to decompose input images \(y \in \mathbb{R}^{D \times H \times W}\) into their wavelet coefficients \(x_{\{lll, ..., hhh\}} \in \mathbb{R}^{\frac{D}{2} \times \frac{H}{2} \times \frac{W}{2}}\), 
+                            which we then concatenate to form a single target matrix \(x \in \mathbb{R}^{8 \times \frac{D}{2} \times \frac{H}{2} \times \frac{W}{2}}\) to be generated by a diffusion model. 
+                            When processing this matrix \(x\), we first map it onto the network's base channels \(\mathcal{C}\) (number of channels in the input layer) via a first convolution, leaving the network width unchanged compared to standard architectures. 
+                            As our network then operates on the wavelet domain only, most parts profit from an \(8 \times\) reduction in spatial dimension, allowing for shallower network architectures, less computations and a significantly reduced memory footprint.
+                            The final output images are obtained by applying Inverse Discrete Wavelet Transform (IDWT) to the generated wavelet coefficients.
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="section ">
+        <div class="container is-max-desktop ">
+            <div class="columns is-centered has-text-centered ">
+                <div class="column ">
+                    <h2 class="title is-3 ">Unconditional Image Generation Results</h2>
+                    <div class="has-text-justified">
+                        To assess our models performance, we evaluate it on an unconditional brain MR and lung CT generation task.
+                        Our proposed approach not only outperforms most comparing methods in FID and MS-SSIM metrics, it also has the lowest inference GPU memory footprint at a resolution of 128 × 128 × 128 and was the only diffusion-based method that could be trained at a resolution of 256 × 256 × 256 (on a single 40 GB GPU).
+                        In the following section, we present some synthetic images generated by our method.
+                    </div><br>
+
+                    <h3 class="title is-5">Brain MRI - BraTs (128 × 128 × 128)</h3>
+                    <div class="row_gif">
+                        <div class="column_gif_small">
+                          <img src="images/BRATS_128/sample_0.gif" style="width:100%">
+                        </div>
+                        <div class="column_gif_small">
+                          <img src="images/BRATS_128/sample_1.gif" style="width:100%">
+                        </div>
+                        <div class="column_gif_small">
+                          <img src="images/BRATS_128/sample_2.gif" style="width:100%">
+                        </div>
+                        <div class="column_gif_small">
+                          <img src="images/BRATS_128/sample_3.gif" style="width:100%">
+                        </div>
+                        <div class="column_gif_small">
+                          <img src="images/BRATS_128/sample_4.gif" style="width:100%">
+                        </div>
+                        <div class="column_gif_small">
+                          <img src="images/BRATS_128/sample_5.gif" style="width:100%">
+                        </div>
+                    </div><br>
+
+                        <h3 class="title is-5">Brain MRI - BraTs (256 × 256 × 256)</h3>
+                        <div class="row_gif">
+                            <div class="column_gif">
+                              <img src="images/BRATS_256/sample_0.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif">
+                              <img src="images/BRATS_256/sample_1.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif">
+                              <img src="images/BRATS_256/sample_2.gif" style="width:100%">
+                            </div>
+                        </div>
+                        <div class="row_gif">
+                            <div class="column_gif">
+                              <img src="images/BRATS_256/sample_3.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif">
+                              <img src="images/BRATS_256/sample_4.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif">
+                              <img src="images/BRATS_256/sample_5.gif" style="width:100%">
+                            </div>
+                        </div><br>
+
+                        <h3 class="title is-5">Lung CT - LIDC-IDRI (128 × 128 × 128)</h3>
+                        <div class="row_gif">
+                            <div class="column_gif_small">
+                              <img src="images/LIDC-IDRI_128/sample_0.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif_small">
+                              <img src="images/LIDC-IDRI_128/sample_1.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif_small">
+                              <img src="images/LIDC-IDRI_128/sample_2.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif_small">
+                              <img src="images/LIDC-IDRI_128/sample_3.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif_small">
+                              <img src="images/LIDC-IDRI_128/sample_4.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif_small">
+                              <img src="images/LIDC-IDRI_128/sample_5.gif" style="width:100%">
+                            </div>
+                        </div><br>
+
+                        <h3 class="title is-5">Lung CT - LIDC-IDRI (256 × 256 × 256)</h3>
+                        <div class="row_gif">
+                            <div class="column_gif">
+                              <img src="images/LIDC-IDRI_256/sample_0.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif">
+                              <img src="images/LIDC-IDRI_256/sample_1.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif">
+                              <img src="images/LIDC-IDRI_256/sample_2.gif" style="width:100%">
+                            </div>
+                        </div>
+                        <div class="row_gif">
+                            <div class="column_gif">
+                              <img src="images/LIDC-IDRI_256/sample_3.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif">
+                              <img src="images/LIDC-IDRI_256/sample_4.gif" style="width:100%">
+                            </div>
+                            <div class="column_gif">
+                              <img src="images/LIDC-IDRI_256/sample_5.gif" style="width:100%">
+                            </div>
+                        </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="section " id="BibTeX ">
+        <div class="container is-max-desktop content ">
+            <h2 class="title ">BibTeX</h2>
+            <pre><code>@article{friedrich2024wdm,
+         title={WDM: 3D Wavelet Diffusion Models for High-Resolution Medical Image Synthesis},
+         author={Paul Friedrich and Julia Wolleb and Florentin Bieder and Alicia Durrer and Philippe C. Cattin},
+         year={2024},
+         journal={arXiv preprint arXiv:2402.19043}}</code></pre>
+        </div>
+    </section>
+
+    <section class="section " id="Acknowledgements ">
+        <div class="container is-max-desktop content ">
+            <h2 class="title ">Acknowledgements</h2>
+            <p>This work was financially supported by the <a href="https://www.wernersiemens-stiftung.ch/en/ ">Werner Siemens Foundation</a> through the <a href="https://www.wernersiemens-stiftung.ch/en/projects/miracle-ii ">MIRACLE II</a> project.</p>
+        </div>
+    </section>
+
+    <footer class="footer ">
+        <div class="container ">
+            <div class="content has-text-centered ">
+                <a class="icon-link " href="https://arxiv.org/abs/2402.19043">
+                    <i class="fas fa-file-pdf "></i>
+                </a>
+                <a class="icon-link " href="https://github.com/pfriedri/wdm-3d" class="external-link " disabled>
+                    <i class="fab fa-github "></i>
+                </a>
+            </div>
+            <div class="columns is-centered ">
+                <div class="column is-8 ">
+                    <div class="content ">
+                        <p>
+                            This website is licensed under a <a rel="license " href="http://creativecommons.org/licenses/by-sa/4.0/ ">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+                        </p>
+                        <p>
+                            This webpage is adepted from the <a href="https://github.com/nerfies/nerfies.github.io ">Nerfies</a> template.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
